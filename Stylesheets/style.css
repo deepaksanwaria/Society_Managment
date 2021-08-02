@@ -1,0 +1,82 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+ height: 78vh;
+ background-image: url(../Media/building.jpeg);   
+}
+.login{
+    width: 30%;
+    height:50%;
+    background-color: #cccccc;
+    /* background-color: #e6e6e6; */
+    border-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 200px;
+    text-align: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+.login h1{
+    font-size:60px;
+    font-family:sans-serif;
+    padding-top: 10px;
+    margin-bottom: 5px;
+}
+.login input[type="text"],input[type="password"]{
+    height: 40px;
+    width: 80%;
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 20px;
+    border: 0;
+    text-indent: 10px;
+    cursor: text;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.login input[type="button"]{
+    width: 30%;
+    margin-top: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    background: #00b33c;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.login input[type="button"]:hover{
+    background: #009933;
+}
+.login input:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.login input:focus{
+    outline:none !important;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+@media (max-width: 1400px){
+    .login{
+        width: 50%;
+    }  
+  }
+  
+@media (max-width: 900px){
+    .login{
+        width: 60%;
+    }  
+  }
+  
+@media (max-width: 500px){
+  .body{
+      height: 70vh;
+    }
+    .login{
+      width: 80%;
+  }  
+}
