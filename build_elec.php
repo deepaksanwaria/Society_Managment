@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +14,8 @@
     <link rel="stylesheet" href="Stylesheets/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/nav.js"></script>
-    <title>Document</title>
+    <link rel="icon" href="media/icon.png" type="image/png">
+    <title>Building Electricity</title>
 </head>
 
 <body>
@@ -19,88 +24,49 @@
     ?>
    <h1>Building Electricity Share</h1>
     <div class="cards">
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="250px">
-                    <col width="100px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>June-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Total Amount</i></td>
-                        <td>8000</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-users"> No of Shares</i></td>
-                        <td>20</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Share Amount</i></td>
-                        <td>400</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <?php
+        include('connection.php');
 
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="250px">
-                    <col width="100px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>July-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Total Amount</i></td>
-                        <td>5000</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-users"> No of Shares</i></td>
-                        <td>20</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Share Amount</i></td>
-                        <td>250</td>
-                    </tr>
+        $username = $_SESSION['login_user'];
+        $sql = "SELECT * FROM `building_elec` WHERE `userid`='$username'";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<div class="card">';
+                //echo '<i class="fas fa-trash-alt"></i>';
+                echo '<div class="view-table">';
+                echo '<table>
+                    <col width="250">
+                    <col width=100"> ';
+
+
+                echo '<tr>
+                <td><i class="fas fa-calendar-alt"> Month</i></td>
+                <td>'.$row['month'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-rupee-sign"> Total Amount</i></td>
+                <td>'.$row['t_bill'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plug"> No of Share</td>
+                <td>'.$row['division'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-rupee-sign"> Share Amount</i></td>
+                <td>'.$row['share'].'</td>
+            </tr>
+            
+                    
                 </table>
-            </div>
-        </div>
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="250px">
-                    <col width="100px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>Aug-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Total Amount</i></td>
-                        <td>4200</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-users"> No of Shares</i></td>
-                        <td>21</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Share Amount</i></td>
-                        <td>200</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="card">FOUR</div>
-        <div class="card">FIVE</div>
-        <div class="card">SIX</div>
-        <div class="card">SEVEN</div>
-        <div class="card">EIGHT</div>
-        <div class="card">NINE</div>
-        <div class="card">TEN</div>
-        <div class="card">ELEVEN</div>
-        <div class="card">TWELVE</div>
+                </div>
+        </div>';
+            }
+        } else {
+            echo '<p class="error-l"> No Record Found!</p>';
+        }
+        ?>    
     </div>
 
     <div class="add_btn">

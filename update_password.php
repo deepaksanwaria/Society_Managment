@@ -14,7 +14,7 @@ include('session.php');
     <link rel="stylesheet" href="Stylesheets/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/nav.js"></script>
-    <title>Add Electricity Bill</title>
+    <title>Change Password</title>
 </head>
 
 <body>
@@ -23,12 +23,11 @@ include('session.php');
     ?>
     <div class="content">
         <div class="main-content">
-            <h1>Electricity Bill</h1>
+            <h1>Change Password</h1>
             <form action="" method="post">
                 <br>
-                <input type="Date" name="month" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14" required>
-                <input type="number" name="amount" id="" placeholder="Enter Amount">
-                <input type="text" name="range" id="" placeholder="Enter Units Range" maxlength="255">
+                <input type="Password" name="pass" id="" placeholder="Enter New Password">
+                <input type="Password" name="cnfrm" id="" placeholder="Confirm New Password">
                 <input type="Submit" value="Submit">
             </form>
         </div>
@@ -40,35 +39,40 @@ include('session.php');
 <?php 
 include('connection.php');
 
-if (isset($_POST['amount'])){
-$month =$_POST['month'];
-$amount =$_POST['amount'];
-$range =$_POST['range'];
+if (isset($_POST['pass'])){
+$pass =$_POST['pass'];
+$cnfrm =$_POST['cnfrm'];
 $username = $_SESSION['login_user'];
 
-if(empty($month) or empty($amount) or empty($range)){
+if(empty($pass) or empty($cnfrm)){
     echo '<p class="error-s">Please insure that all the fields are filled</p>';
         exit();
 }
-$sql = "INSERT INTO `elec_bill`(`month`, `amount`, `urange`, `userid`) VALUES ('$month','$amount','$range','$username')";
+if($pass!= $cnfrm){
+    echo '<script language="javascript">';
+    echo 'alert("New Password and Confirm Password must same ")';
+    echo '</script>';
+    exit();
+}
+$sql = "UPDATE `users` SET `password`='$pass' WHERE userid='$username' ";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
     echo '<script language="javascript">';
-    echo 'alert("Failed to insert Details")';
+    echo 'alert("Failed to Update Details")';
     echo '</script>';
 ?>
     <script>
-        window.location.replace("add_elec_bill.php");
+        window.location.replace("update_password.php");
     </script>
 <?php
 } else {
     echo '<script language="javascript">';
-    echo 'alert("Successful")';
+    echo 'alert("Password Successfully Updated")';
     echo '</script>';
 ?>
     <script>
-        window.location.replace("elec_bill.php");
+        window.location.replace("dashboard.php");
     </script>
 <?php
 }

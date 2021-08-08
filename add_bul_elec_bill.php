@@ -1,3 +1,7 @@
+<?php 
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,16 +24,54 @@
     <div class="content">
         <div class="main-content">
             <h1>Building Elec. Bill</h1>
-            <form action="POST">
+            <form action="" method="post">
                 <br>
-                <input type="text" name="" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14">
-                <input type="number" name="" id="" placeholder="Enter Total Bill Amount">
-                <input type="number" name="" id="" placeholder="Enter No of Division">
-                <input type="number" name="" id="" placeholder="Enter your bill share">
-                <input type="button" value="Submit">
+                <input type="Date" name="month" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14">
+                <input type="number" name="tbill" id="" placeholder="Enter Total Bill Amount">
+                <input type="number" name="division" id="" placeholder="Enter No of Division">
+                <input type="submit" value="Submit">
             </form>
         </div>
     </div>
 </body>
 
 </html>
+<?php 
+include('connection.php');
+
+if (isset($_POST['tbill'])){
+$month =$_POST['month'];
+$tbill =$_POST['tbill'];
+$division =$_POST['division'];
+$sbill =$tbill/$division;
+$username = $_SESSION['login_user'];
+
+if(empty($month) or empty($tbill) or empty($division)){
+    echo '<p class="error-s">Please insure that all the fields are filled</p>';
+        exit();
+}
+$sql = "INSERT INTO `building_elec`(`month`, `t_bill`, `division`, `share`, `userid`) VALUES ('$month','$tbill','$division','$sbill','$username')";
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    echo '<script language="javascript">';
+    echo 'alert("Failed to insert Details")';
+    echo '</script>';
+?>
+    <script>
+        window.location.replace("add_bul_elec_bill");
+    </script>
+<?php
+} else {
+    echo '<script language="javascript">';
+    echo 'alert("Successful")';
+    echo '</script>';
+?>
+    <script>
+        window.location.replace("build_elec.php");
+    </script>
+<?php
+}
+}
+
+?>

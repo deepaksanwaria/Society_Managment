@@ -13,7 +13,7 @@ h1{
 .content {
   display: flex;
   justify-content: center;
-  margin-top: 10%;
+  margin-top: 5%;
   height: 75vh;
 }
 .main-content {
@@ -29,6 +29,31 @@ h1{
 }
 .tb {
   width: 600px;
+}
+.error-s{
+  font-size: 20px;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+.error-l{
+  font-size: 40px;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+}
+.error {
+  font-size: 50px;
+  color: red;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.error-m {
+  font-size: 30px;
+  color: red;
+  text-align: center;
+  margin-top: 20px;
 }
 .content .main-content h1 {
   font-size: 40px;
@@ -75,7 +100,8 @@ h1{
 }
 .content .main-content input[type="text"],
 input[type="number"],
-input[type="password"] {
+input[type="password"],
+input[type="email"], select, input[type="Date"] {
   width: 90%;
   height: 35px;
   border-radius: 20px;
@@ -86,16 +112,17 @@ input[type="password"] {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   font-weight: 500;
 }
-.content .main-content input:focus {
+.content .main-content input:focus, select:focus {
   outline: 0;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
 }
-.content .main-content input:hover {
+
+.content .main-content input:hover ,select:hover {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
-.content .main-content input[type="button"] {
+.content .main-content input[type="submit"] {
   margin-top: 30px;
   width: 40%;
   height: 35px;
@@ -107,7 +134,7 @@ input[type="password"] {
   background-color: #009933;
   color: #fff;
 }
-.content .main-content input[type="button"]:hover {
+.content .main-content input[type="submit"]:hover {
   background-color: #00802b;
   transform: scale(1.05);
 }

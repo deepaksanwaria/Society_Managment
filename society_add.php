@@ -14,21 +14,36 @@ include('session.php');
     <link rel="stylesheet" href="Stylesheets/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/nav.js"></script>
-    <title>Add Electricity Bill</title>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <title>Add society</title>
 </head>
 
 <body>
+<?php
+
+$username = $_SESSION['login_user'];
+if ($username != "admin") {
+    echo '<p class="error"><i class="fas fa-exclamation-triangle"></i> You are not authorized to access this option</p>';
+    echo '<p class="error-m">You will be redirected to home page in 5 seconds.</p>';
+?>
+    <script>
+        setTimeout(function() {
+            window.location.href = 'dashboard.php';
+        }, 5000);
+    </script>
+<?php
+    exit();
+}
+?>
 <?php
     include('navbar.php')
     ?>
     <div class="content">
         <div class="main-content">
-            <h1>Electricity Bill</h1>
+            <h1>Society Add</h1>
             <form action="" method="post">
                 <br>
-                <input type="Date" name="month" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14" required>
-                <input type="number" name="amount" id="" placeholder="Enter Amount">
-                <input type="text" name="range" id="" placeholder="Enter Units Range" maxlength="255">
+                <input type="text" name="society" id="" placeholder="Enter Society Name" maxlength="29">
                 <input type="Submit" value="Submit">
             </form>
         </div>
@@ -40,17 +55,13 @@ include('session.php');
 <?php 
 include('connection.php');
 
-if (isset($_POST['amount'])){
-$month =$_POST['month'];
-$amount =$_POST['amount'];
-$range =$_POST['range'];
-$username = $_SESSION['login_user'];
-
-if(empty($month) or empty($amount) or empty($range)){
+if (isset($_POST['society'])){
+$society =$_POST['society'];
+if(empty($society)){
     echo '<p class="error-s">Please insure that all the fields are filled</p>';
         exit();
 }
-$sql = "INSERT INTO `elec_bill`(`month`, `amount`, `urange`, `userid`) VALUES ('$month','$amount','$range','$username')";
+$sql = "INSERT INTO `society`(`name`) VALUES ('$society')";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
@@ -59,7 +70,7 @@ if (!$result) {
     echo '</script>';
 ?>
     <script>
-        window.location.replace("add_elec_bill.php");
+        window.location.replace("society_add.php");
     </script>
 <?php
 } else {
@@ -68,7 +79,7 @@ if (!$result) {
     echo '</script>';
 ?>
     <script>
-        window.location.replace("elec_bill.php");
+        window.location.replace("dashboard.php");
     </script>
 <?php
 }

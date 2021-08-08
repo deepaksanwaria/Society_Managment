@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,15 +24,54 @@
     <div class="content">
         <div class="main-content">
             <h1>Monthly Expenses</h1>
-            <form action="POST">
+            <form action="" method="post">
                 <br>
-                <input type="text" name="" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14">
-                <input type="number" name="" id="" placeholder="Enter Amount">
-                <input type="text" name="" id="" placeholder="Enter Reason" maxlength="255">
-                <input type="button" value="Submit">
+                <input type="Date" name="Month" id="" placeholder="Enter Month ex. Apr-2021" maxlength="14">
+                <input type="number" name="Amount" id="" placeholder="Enter Amount">
+                <input type="text" name="Reason" id="" placeholder="Enter Reason" maxlength="255">
+                <input type="Submit" value="Submit">
             </form>
         </div>
     </div>
 </body>
 
 </html>
+
+<?php 
+include('connection.php');
+
+if (isset($_POST['Amount'])){
+$month =$_POST['Month'];
+$amount =$_POST['Amount'];
+$reason =$_POST['Reason'];
+$username = $_SESSION['login_user'];
+
+if(empty($month) or empty($amount) or empty($reason)){
+    echo '<p class="error-s">Please insure that all the fields are filled</p>';
+        exit();
+}
+$sql = "INSERT INTO `month_exp`(`month`, `amount`, `reason`, `userid`) VALUES ('$month','$amount','$reason','$username')";
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    echo '<script language="javascript">';
+    echo 'alert("Failed to insert Details")';
+    echo '</script>';
+?>
+    <script>
+        window.location.replace("add_m_expenses.php");
+    </script>
+<?php
+} else {
+    echo '<script language="javascript">';
+    echo 'alert("Successful")';
+    echo '</script>';
+?>
+    <script>
+        window.location.replace("monthly_exp.php");
+    </script>
+<?php
+}
+}
+
+?>

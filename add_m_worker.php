@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,25 +18,69 @@
 </head>
 
 <body>
-<?php
+    <?php
     include('navbar.php')
     ?>
     <div class="content">
-        <div class="main-content">
-            <h1>Mantainence Worker</h1>
-            <form action="POST">
+        <div class="main-content mc-tm">
+            <h1>Worker</h1>
+            <form action="" method="POST">
                 <br>
-                <input type="text" name="" id="" placeholder="Enter Name of worker" maxlength="30">
-                <input type="text" name="" id="" placeholder="Enter Broker Name" maxlength="30">
-                <input type="number" name="" id="" placeholder="Enter Phone Number">
-                <input type="number" name="" id="" placeholder="Enter Salary">
-                <input type="text" name="" id="" placeholder="Month of Joining" maxlength="14">
-                <input type="text" name="" id="" placeholder="ID Documnet Name" maxlength="30">
-                <input type="text" name="" id="" placeholder="Enter ID Number" maxlength="30">
-                <input type="button" value="Submit">
+                <input type="text" name="name" placeholder="Enter Name of worker" maxlength="30">
+                <input type="text" name="broker" placeholder="Enter Broker Name" maxlength="30">
+                <input type="number" name="phone" placeholder="Enter Phone Number">
+                <input type="number" name="salary" placeholder="Enter Salary">
+                <input type="Date" name="mon_join" placeholder="Month of Joining" maxlength="14">
+                <input type="text" name="ID_type" placeholder="ID Documnet Name" maxlength="30">
+                <input type="text" name="ID_no" placeholder="Enter ID Number" maxlength="30">
+                <input type="submit" value="Submit">
             </form>
         </div>
     </div>
 </body>
 
 </html>
+
+<?php
+include('connection.php');
+if (isset($_POST['name'])) {
+    $name = $_POST['name'];
+    $broker = $_POST['broker'];
+    $phone = $_POST['phone'];
+    $salary = $_POST['salary'];
+    $mon_join = $_POST['mon_join'];
+    $ID_type = $_POST['ID_type'];
+    $ID_no = $_POST['ID_no'];
+    $username = $_SESSION['login_user'];
+
+    if (empty($name) or empty($broker) or empty($phone) or empty($salary) or empty($mon_join) or empty($ID_type) or empty($ID_no)){
+        echo '<p class="error-s">Please insure that all the fields are filled</p>';
+        exit();
+    }
+
+    $sql = "INSERT INTO `mantain_worker`(`Name`, `broker`, `phone`, `salary`, `month_join`, `id_type`, `id_number`, `userid`) VALUES ('$name','$broker','$phone','$salary','$mon_join','$ID_type','$ID_no','$username')";
+    $result = mysqli_query($conn, $sql);
+
+    if (!$result) {
+        echo '<script language="javascript">';
+        echo 'alert("Failed to insert Details")';
+        echo '</script>';
+?>
+        <script>
+            window.location.replace("add_m_worker.php");
+        </script>
+    <?php
+    } else {
+        echo '<script language="javascript">';
+        echo 'alert("Successful")';
+        echo '</script>';
+    ?>
+        <script>
+            window.location.replace("Mantaince_worker.php");
+        </script>
+<?php
+    }
+}
+
+
+?>

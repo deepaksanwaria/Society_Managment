@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +14,8 @@
     <link rel="stylesheet" href="Stylesheets/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/nav.js"></script>
-    <title>Document</title>
+    <link rel="icon" href="media/icon.png" type="image/png">
+    <title>Electricity Bill</title>
 </head>
 
 <body>
@@ -19,77 +24,46 @@
     ?>
     <h1>Monthly Electricity Bill</h1>
     <div class="cards">
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>June-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>2008</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-plug"> Range</i></td>
-                        <td>1880-1915</i></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <?php
+        include('connection.php');
 
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>July-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>3120</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-plug"> Range</i></td>
-                        <td>1916-2000</i></td>
-                    </tr>
+        $username = $_SESSION['login_user'];
+        $sql = "SELECT * FROM `elec_bill` WHERE `userid`='$username'";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<div class="card">';
+                //echo '<i class="fas fa-trash-alt"></i>';
+                echo '<div class="view-table">';
+                echo '<table>
+                    <col width="170">
+                    <col width=210"> ';
+
+
+                echo '<tr>
+                <td><i class="fas fa-calendar-alt"> Month</i></td>
+                <td>'.$row['month'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-rupee-sign"> Amount</i></td>
+                <td>'.$row['amount'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-plug"> Range</td>
+                <td>'.$row['urange'].'</td>
+            </tr>
+            
+                    
                 </table>
-            </div>
+                </div>
+        </div>';
+            }
+        } else {
+            echo '<p class="error-l"> No Record Found!</p>';
+        }
+        ?>
         </div>
-        <div class="card">
-            <div class="view-table">
-            <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>Aug-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>2519</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-plug"> Range</i></td>
-                        <td>2001-2080</i></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="card">FOUR</div>
-        <div class="card">FIVE</div>
-        <div class="card">SIX</div>
-        <div class="card">SEVEN</div>
-        <div class="card">EIGHT</div>
-        <div class="card">NINE</div>
-        <div class="card">TEN</div>
-        <div class="card">ELEVEN</div>
-        <div class="card">TWELVE</div>
-    </div>
 
     <div class="add_btn">
     <a href="add_elec_bill.php"><i class="fas fa-plus-circle"></i></a>

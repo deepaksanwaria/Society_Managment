@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,55 +19,74 @@
 </head>
 
 <body>
-<?php
+    <?php
     include('navbar.php')
     ?>
-    <h1>Mantaince Worker</h1>
+    <h1>Maintenance Worker</h1>
     <div class="cards">
-        <div class="card card-l">
-        <i class="fas fa-trash-alt"></i>
-            <div class="view-table">
-            <table>
+
+        <?php
+        include('connection.php');
+
+        $username = $_SESSION['login_user'];
+        $sql = "SELECT * FROM `mantain_worker` WHERE `userid`='$username'";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<div class="card card-l">';
+                // echo '<i class="fas fa-trash-alt"></i>';
+                echo '<div class="view-table">';
+                echo '<table>
                     <col width="170px">
-                    <col width="210px">
-                    <tr>
+                    <col width="210px"> ';
+
+
+                echo '<tr>
                         <td><b>Name</b></td>
-                        <td>Rajesh</td>
+                        <td>' . $row['Name'] . '</td>
                     </tr>
                     <tr>
                         <td><b>Broker</b></td>
-                        <td>HPL</td>
+                        <td>' . $row['broker'] . '</td>
                     </tr>
                     <tr>
                         <td><b>Phone</b></td>
-                        <td>9876543210</td>
+                        <td>' . $row['phone'] . '</td>
                     </tr>
                     <tr>
                         <td><i class="fas fa-rupee-sign">Salary</i></td>
-                        <td>2008</td>
+                        <td>' . $row['salary'] . '</td>
                     </tr>
                     <tr>
                         <td><b>Join Date</b></td>
-                        <td>Jan-21</td>
+                        <td>' . $row['month_join'] . '</td>
                     </tr>
                     <tr>
                         <td><b>ID type</b></td>
-                        <td>Addhar</td>
+                        <td>' . $row['id_type'] . '</td>
                     </tr>
                     <tr>
                         <td><b>ID Number</b></td>
-                        <td>123456789012</td>
+                        <td>' . $row['id_number'] . '</td>
                     </tr>
-                    
-                </table>
-            </div>
-        </div>
 
-        
+                </table>
+                </div>
+        </div>';
+            }
+        } else {
+            echo '<p class="error-l"> No Record Found!</p>';
+        }
+        ?>
+
+
+
+
     </div>
 
     <div class="add_btn">
-    <a href="add_m_worker.php"><i class="fas fa-plus-circle"></i></a>
+        <a href="add_m_worker.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 </body>
 

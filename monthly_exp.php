@@ -1,3 +1,7 @@
+<?php
+session_start();
+include('session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,10 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Stylesheets/style.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <link rel="icon" href="media/icon.png" type="image/png">
     <link rel="stylesheet" href="Stylesheets/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/nav.js"></script>
-    <title>Document</title>
+    <title>Monthly Expenses</title>
 </head>
 
 <body>
@@ -19,76 +24,44 @@
     ?>
     <h1>Monthly Expenses</h1>
     <div class="cards">
-        <div class="card">
-            <div class="view-table">
-                <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>June-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>2500</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-long-arrow-alt-right">Reason</i></td>
-                        <td>Mantanince</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <?php
+        include('connection.php');
 
-        <div class="card">
-            <div class="view-table">
-                <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>June-21</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-long-arrow-alt-right">Reason</i></td>
-                        <td>Parking</td>
-                    </tr>
+        $username = $_SESSION['login_user'];
+        $sql = "SELECT * FROM `month_exp` WHERE `userid`='$username'";
+        $result = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+                echo '<div class="card">';
+                //echo '<i class="fas fa-trash-alt"></i>';
+                echo '<div class="view-table">';
+                echo '<table>
+                    <col width="120">
+                    <col width=250"> ';
+
+
+                echo '<tr>
+                <td><i class="fas fa-calendar-alt"> Month</i></td>
+                <td>'.$row['month'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-rupee-sign"> Amount</i></td>
+                <td>'.$row['amount'].'</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-long-arrow-alt-right">Reason</i></td>
+                <td>'.$row['reason'].'</td>
+            </tr>
+                
                 </table>
-            </div>
-        </div>
-        <div class="card">
-            <div class="view-table">
-                <table>
-                    <col width="170px">
-                    <col width="210px">
-                    <tr>
-                        <td><i class="fas fa-calendar-alt"> Month</i></td>
-                        <td>July-2021</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-rupee-sign"> Amount</i></td>
-                        <td>2500</td>
-                    </tr>
-                    <tr>
-                        <td><i class="fas fa-long-arrow-alt-right">Reason</i></td>
-                        <td>Mantanince</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="card">FOUR</div>
-        <div class="card">FIVE</div>
-        <div class="card">SIX</div>
-        <div class="card">SEVEN</div>
-        <div class="card">EIGHT</div>
-        <div class="card">NINE</div>
-        <div class="card">TEN</div>
-        <div class="card">ELEVEN</div>
-        <div class="card">TWELVE</div>
+                </div>
+        </div>';
+            }
+        } else {
+            echo '<p class="error-l"> No Record Found!</p>';
+        }
+        ?>  
     </div>
 
     <div class="add_btn">
