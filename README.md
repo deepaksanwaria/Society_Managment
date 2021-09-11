@@ -16,9 +16,9 @@ To use this project
 
 ```
   Download the project file and local server application.
-  Extract the project file to htdocs folder inside local server application folder.
-  Create a local database and import the sql file provided in project.
-  Make change in connection.php file like servername, user, password and DB Name.
+  Extract the project file to htdocs folder inside the local server application folder.
+  Create a local database and import the SQL file provided in the project.
+  Make changes in connection.php file like servername, user, password and DB Name.
   Open a browser and search localhost//[Folder name where the project is located under htdocs]
   Login with username and password provided below.
  
