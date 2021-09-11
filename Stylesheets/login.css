@@ -3,8 +3,12 @@
   margin: 0;
 }
 body {
-  height: 75vh;
-  background-image: url(../Media/building.jpeg);
+  height:78.7vh;
+  /* background-image: url(../Media/building.jpeg); */
+  background: linear-gradient(rgba(13, 13, 13, 0.3), rgba(13, 13, 13, 0.5)),
+    url(../Media/building.jpeg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
 }
 .login {
   width: 32%;
@@ -12,7 +16,6 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #cccccc;
-  /* background-color: #e6e6e6; */
   border-radius: 20px;
   margin-right: auto;
   margin-left: auto;
@@ -29,7 +32,8 @@ body {
   margin-bottom: 5px;
 }
 .login input[type="text"],
-input[type="password"], select {
+input[type="password"],
+select {
   height: 40px;
   width: 80%;
   margin-top: 30px;
@@ -58,13 +62,58 @@ input[type="password"], select {
 .login input[type="submit"]:hover {
   background: #009933;
 }
-.login input:hover ,select:hover {
+.login input:hover,
+select:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
-.login input:focus, select:focus {
+.login input:focus,
+select:focus {
   outline: none !important;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.login .Failed {
+  width: 80%;
+  background-color: red;
+  margin-left: 10%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.redirect-option {
+  width: 100%;
+  margin-top: 50px;
+}
+.redirect-option .home_redirect {
+  padding: 12px 5%;
+  background-color: black;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10%;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.redirect-option .log_redirect {
+  padding: 12px 5%;
+  background-color: black;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10%;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 @media (max-width: 1400px) {
   .login {
@@ -74,15 +123,26 @@ input[type="password"], select {
 
 @media (max-width: 900px) {
   .login {
-    width: 60%;
+    width: 70%;
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 680px) {
   .body {
-    height: 70vh;
+    height: 110vh;
   }
   .login {
-    width: 80%;
+    width: 90%;
+  }
+  .redirect-option .home_redirect {
+    margin: 0;
+    display: block;
+    border-radius: 0;
+  }
+  .redirect-option .log_redirect {
+    margin: 0;
+    display: block;
+    margin-top: 20px;
+    border-radius:0;
   }
 }

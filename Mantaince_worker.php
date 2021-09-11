@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('session.php');
+$page="Manataince_worker";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,27 +20,39 @@ include('session.php');
 </head>
 
 <body>
+    <div class="background"></div>
     <?php
-    include('navbar.php')
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
     ?>
+    
     <h1>Maintenance Worker</h1>
     <div class="cards">
 
         <?php
         include('connection.php');
-
-        $username = $_SESSION['login_user'];
+        if( isset($_SESSION['admin_search_user'])){
+            $username = $_SESSION['admin_search_user'];
+            }else{
+                $username = $_SESSION['login_user'];
+                }
         $sql = "SELECT * FROM `mantain_worker` WHERE `userid`='$username'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
-                echo '<div class="card card-l">';
+                echo '<div class="card">';
                 // echo '<i class="fas fa-trash-alt"></i>';
                 echo '<div class="view-table">';
                 echo '<table>
-                    <col width="170px">
-                    <col width="210px"> ';
+                    <col width="200px">
+                    <col width="250px"> ';
 
 
                 echo '<tr>
@@ -86,6 +99,7 @@ include('session.php');
     </div>
 
     <div class="add_btn">
+    <i class="fa fa-print" aria-hidden="true" onclick="window.print()"></i><br>
         <a href="add_m_worker.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 </body>

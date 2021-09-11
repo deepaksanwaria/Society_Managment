@@ -1,14 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&display=swap");
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 body {
-  background-color: #bfbfbf;
+  /* background-color: #bfbfbf; */
+  min-height: 100vh;
+  background: linear-gradient(rgba(13, 13, 13, 0.3), rgba(13, 13, 13, 0.3)),
+    url(../Media/bg.jpg);
+  background-size: 100% 100%;
+  font-family: "Baloo Bhai 2";
 }
-h1{
+h1 {
   text-align: center;
   margin-top: 10px;
+  font-weight: 700;
+  font-size: 50px;
+  text-shadow: #fff 0px 2px;
+}
+.user_div{
+  width: 100%;
+  text-align: center;
+  margin-top: 20px; ;
+}
+.user_sub_div{
+  display: inline-block;
+  width: 350px;
+  background-color: rgb(38, 38, 38, 0.8);
+  color: #fff;
+  border-radius:20px;
+  font-size: 20px; 
 }
 .content {
   display: flex;
@@ -30,13 +52,13 @@ h1{
 .tb {
   width: 600px;
 }
-.error-s{
+.error-s {
   font-size: 20px;
   color: red;
   text-align: center;
   margin-top: 20px;
 }
-.error-l{
+.error-l {
   font-size: 40px;
   color: red;
   text-align: center;
@@ -54,6 +76,18 @@ h1{
   color: red;
   text-align: center;
   margin-top: 20px;
+}
+.Failed {
+  width: 80%;
+  background-color: red;
+  margin-left: 10%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #fff;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-family: sans-serif;
+  font-size: 5px;
 }
 .content .main-content h1 {
   font-size: 40px;
@@ -74,14 +108,19 @@ h1{
 }
 
 .content .main-content ul li a {
+  display: block;
+  letter-spacing: 2px;
+  padding-top: 5px;
+  height: 35px;
   text-decoration: none;
+  
   color: #fff;
 }
 .content .main-content ul li {
   height: 40px;
   border: 1px solid #000;
   margin-top: 15px;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
   background-color: #000;
   border-radius: 20px;
@@ -101,7 +140,9 @@ h1{
 .content .main-content input[type="text"],
 input[type="number"],
 input[type="password"],
-input[type="email"], select, input[type="Date"] {
+input[type="email"],
+select,
+input[type="Date"] {
   width: 90%;
   height: 35px;
   border-radius: 20px;
@@ -112,12 +153,14 @@ input[type="email"], select, input[type="Date"] {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   font-weight: 500;
 }
-.content .main-content input:focus, select:focus {
+.content .main-content input:focus,
+select:focus {
   outline: 0;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px !important;
 }
 
-.content .main-content input:hover ,select:hover {
+.content .main-content input:hover,
+select:hover {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
@@ -140,16 +183,16 @@ input[type="email"], select, input[type="Date"] {
 }
 
 .card {
-  background-color: #e6e6e6;
-  width: 350px;
-  padding: 1rem;
-  height: 200px;
+  background-color: rgb(38, 38, 38, 0.9);
+  width: 500px;
+  color: #fff;
+  letter-spacing: 1px;
+  padding: 1.5rem 1rem;
+  height: fit-content;
   border-radius: 20px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
-.card-l{
-  height: 430px !important;
-}
+
 .cards {
   max-width: 1200px;
   margin: 0 auto;
@@ -176,13 +219,17 @@ td {
   bottom: 0;
   right: 0;
   font-size: 60px;
-  padding-bottom: 20px;
+  padding-bottom: 5px;
   padding-right: 30px;
 }
-.add_btn a{
+.add_btn i {
+  background-color: #fff;
+  border-radius: 50%;
+}
+.add_btn a {
   color: #000;
 }
-.add_btn:hover {
+.add_btn i:hover {
   font-size: 70px;
 }
 
@@ -193,7 +240,7 @@ td {
 }
 @media (min-width: 900px) {
   .cards {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 400px) {
@@ -207,5 +254,27 @@ td {
   th,
   td {
     width: 100%;
+    display: block;
+  }
+  tr {
+    border-bottom: 3px solid #4d4d4d;
+  }
+  .card {
+    width: 350px;
+  }
+}
+@media print {
+  .topnav {
+    visibility: hidden;
+  }
+  body {
+    background: none !important;
+  }
+  .add_btn {
+    visibility: hidden;
+  }
+  .card{
+    /* page-break-inside: always; */
+    page-break-after: auto;
   }
 }

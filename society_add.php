@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include('session.php');
+$page="add_society";
 ?>
 <!DOCTYPE html>
 <html lang="en">

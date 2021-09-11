@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('session.php');
+$page="expenses";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,14 +21,25 @@ include('session.php');
 
 <body>
 <?php
-    include('navbar.php')
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
     ?>
     <h1>Monthly Expenses</h1>
     <div class="cards">
     <?php
         include('connection.php');
 
-        $username = $_SESSION['login_user'];
+        if( isset($_SESSION['admin_search_user'])){
+            $username = $_SESSION['admin_search_user'];
+            }else{
+            $username = $_SESSION['login_user'];
+            }
         $sql = "SELECT * FROM `month_exp` WHERE `userid`='$username'";
         $result = mysqli_query($conn, $sql);
 
@@ -37,7 +49,7 @@ include('session.php');
                 //echo '<i class="fas fa-trash-alt"></i>';
                 echo '<div class="view-table">';
                 echo '<table>
-                    <col width="120">
+                    <col width="200">
                     <col width=250"> ';
 
 
@@ -65,7 +77,8 @@ include('session.php');
     </div>
 
     <div class="add_btn">
-    <a href="add_m_expenses.php"><i class="fas fa-plus-circle"></i></a>
+    <i class="fa fa-print" aria-hidden="true" onclick="window.print()"></i><br>
+        <a href="add_m_expenses.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 </body>
 

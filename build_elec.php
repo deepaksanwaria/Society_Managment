@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('session.php');
+$page = "bul_elec";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +20,26 @@ include('session.php');
 </head>
 
 <body>
-<?php
-    include('navbar.php')
-    ?>
-   <h1>Building Electricity Share</h1>
-    <div class="cards">
     <?php
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
+    ?>
+    <h1>Building Electricity Share</h1>
+    <div class="cards">
+        <?php
         include('connection.php');
 
-        $username = $_SESSION['login_user'];
+        if( isset($_SESSION['admin_search_user'])){
+            $username = $_SESSION['admin_search_user'];
+            }else{
+            $username = $_SESSION['login_user'];
+            }
         $sql = "SELECT * FROM `building_elec` WHERE `userid`='$username'";
         $result = mysqli_query($conn, $sql);
 
@@ -38,24 +50,24 @@ include('session.php');
                 echo '<div class="view-table">';
                 echo '<table>
                     <col width="250">
-                    <col width=100"> ';
+                    <col width=200"> ';
 
 
                 echo '<tr>
                 <td><i class="fas fa-calendar-alt"> Month</i></td>
-                <td>'.$row['month'].'</td>
+                <td>' . $row['month'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-rupee-sign"> Total Amount</i></td>
-                <td>'.$row['t_bill'].'</td>
+                <td>' . $row['t_bill'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-plug"> No of Share</td>
-                <td>'.$row['division'].'</td>
+                <td>' . $row['division'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-rupee-sign"> Share Amount</i></td>
-                <td>'.$row['share'].'</td>
+                <td>' . $row['share'] . '</td>
             </tr>
             
                     
@@ -66,10 +78,12 @@ include('session.php');
         } else {
             echo '<p class="error-l"> No Record Found!</p>';
         }
-        ?>    
+        ?>
     </div>
 
     <div class="add_btn">
+         <i class="fa fa-print" aria-hidden="true" onclick="window.print()"></i><br>
+
         <a href="add_bul_elec_bill.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 </body>

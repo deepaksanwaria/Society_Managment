@@ -19,7 +19,14 @@ include('session.php');
 
 <body>
     <?php
-    include('navbar.php')
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
     ?>
     <div class="content">
         <div class="main-content mc-tm">
@@ -51,7 +58,11 @@ if (isset($_POST['name'])) {
     $mon_join = $_POST['mon_join'];
     $ID_type = $_POST['ID_type'];
     $ID_no = $_POST['ID_no'];
-    $username = $_SESSION['login_user'];
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        }else{
+        $username = $_SESSION['login_user'];
+        }
 
     if (empty($name) or empty($broker) or empty($phone) or empty($salary) or empty($mon_join) or empty($ID_type) or empty($ID_no)){
         echo '<p class="error-s">Please insure that all the fields are filled</p>';

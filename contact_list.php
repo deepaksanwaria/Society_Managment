@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('session.php');
+$page = "contact";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,15 +20,25 @@ include('session.php');
 </head>
 
 <body>
-<?php
-    include('navbar.php')
+    <?php
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
     ?>
     <h1>Contacts</h1>
     <div class="cards">
-    <?php
+        <?php
         include('connection.php');
-
+        if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        }else{
         $username = $_SESSION['login_user'];
+        }
         $sql = "SELECT * FROM `contact_list` WHERE `userid`='$username'";
         $result = mysqli_query($conn, $sql);
 
@@ -37,25 +48,25 @@ include('session.php');
                 //echo '<i class="fas fa-trash-alt"></i>';
                 echo '<div class="view-table">';
                 echo '<table>
-                    <col width="60">
-                    <col width="300"> ';
+                    <col width="100">
+                    <col width="350"> ';
 
 
                 echo '<tr>
                 <td><i class="fas fa-user"></i></td>
-                <td>'.$row['name'].'</td>
+                <td>' . $row['name'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-house-user"></i></td>
-                <td>'.$row['flat'].'</td>
+                <td>' . $row['flat'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-phone"></td>
-                <td>'.$row['phone'].'</td>
+                <td>' . $row['phone'] . '</td>
             </tr>
             <tr>
                 <td><i class="fas fa-envelope"></td>
-                <td>'.$row['email'].'</td>
+                <td>' . $row['email'] . '</td>
             </tr>
                     
                 </table>
@@ -66,10 +77,11 @@ include('session.php');
             echo '<p class="error-l"> No Record Found!</p>';
         }
         ?>
- 
+
     </div>
 
     <div class="add_btn">
+        <i class="fa fa-print" aria-hidden="true" onclick="window.print()"></i><br>
         <a href="add_neb_list.php"><i class="fas fa-plus-circle"></i></a>
     </div>
 </body>

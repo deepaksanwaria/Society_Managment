@@ -20,19 +20,24 @@ $username=$_SESSION['login_user'];
 <body>
     <div class="content">
         <div class="main-content">
-            <p>Welocome, <?=$name," ",$flat?></p>
+            <p>Welcome, <?=$name," (",$flat?>)</p>
             <ul>
-                <li><a href="Mantaince_worker.php">Mantainence Worker </a></li>
-                <li><a href="contact_list.php">Nebhiours List </a></li>
-                <li><a href="monthly_exp.php">Monthly Expenses</a></li>
-                <li><a href="elec_bill.php">Electricity Bill</a></li>
-                <li><a href="build_elec.php">Buliding Electricity </a></li>
-                <li><a href="update_password.php">Change Password </a></li>
+                
                 <?php 
                 if($username=='admin'){
                     echo'
                     <li><a href="add_user.php">Create User</a></li> 
-                    <li><a href="society_add.php">Add Society</a></li> ';
+                    <li><a href="society_add.php">Add Society</a></li>
+                    <li><a href="select_user.php">User Remote</a></li>
+                    <li><a href="update_password.php">Change Password </a></li> ';
+                }else{
+                    echo '
+                    <li><a href="Mantaince_worker.php">Mantainence Worker </a></li>
+                    <li><a href="contact_list.php">Nebhiours List </a></li>
+                    <li><a href="monthly_exp.php">Monthly Expenses</a></li>
+                    <li><a href="elec_bill.php">Electricity Bill</a></li>
+                    <li><a href="build_elec.php">Buliding Electricity </a></li>
+                    <li><a href="update_password.php">Change Password </a></li>';
                 }
                 
                 ?>

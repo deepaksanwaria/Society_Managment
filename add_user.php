@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('session.php');
+$page="add_user";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,8 +104,8 @@ else
         echo '</script>';
         exit();
     }
-
-    $sql = "INSERT INTO `users`(`name`, `flat_no`, `phone`, `email`, `userid`, `password`, `society_name`) VALUES ('$name','$flat','$phone','$email','$userid','$password','$society')";
+    $password_hash=password_hash($password,PASSWORD_BCRYPT);
+    $sql = "INSERT INTO `users`(`name`, `flat_no`, `phone`, `email`, `userid`, `password`, `society_name`) VALUES ('$name','$flat','$phone','$email','$userid','$password_hash','$society')";
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {

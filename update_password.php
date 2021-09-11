@@ -54,7 +54,8 @@ if($pass!= $cnfrm){
     echo '</script>';
     exit();
 }
-$sql = "UPDATE `users` SET `password`='$pass' WHERE userid='$username' ";
+$password_hash=password_hash($pass,PASSWORD_BCRYPT);
+$sql = "UPDATE `users` SET `password`='$password_hash' WHERE `userid`='$username' ";
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {

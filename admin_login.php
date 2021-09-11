@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 include("connection.php");
 //Checking for any avaliable Cookie or Session 
 if (isset($_SESSION['login_user'], $_SESSION['flat_no'], $_SESSION['name'])) {
@@ -31,12 +31,10 @@ if (isset($_POST["username"], $_POST["password"])) {
     $password =  mysqli_real_escape_string($conn,$_POST["password"]);
     $_SESSION['user'] = $username;
     $_SESSION['pass'] = $password;
-    if (!isset($_POST['society'])) {
-        $_SESSION['msg'] = 'Please select your society';
+    if ($username != "admin") {
+        $_SESSION['msg'] = 'You are not authorized to login';
     } else {
-        $society = $_POST['society'];
-        $_SESSION['society'] = $society;
-        $sql = "SELECT * FROM `users` WHERE `userid`='$username' AND `society_name`='$society'";
+        $sql = "SELECT * FROM `users` WHERE `userid`='$username' ";
         $result = mysqli_query($conn, $sql);
         $count = mysqli_num_rows($result);
         echo $count;
@@ -63,9 +61,8 @@ if (isset($_POST["username"], $_POST["password"])) {
                 // echo '</script>';
                 $_SESSION['msg'] = 'Invalid Credentials !';
             }
-        } else {
-            $_SESSION['msg'] = 'User doesnot exist !';
         }
+      
     }
 }
 ?>
@@ -85,7 +82,7 @@ if (isset($_POST["username"], $_POST["password"])) {
 <body>
 
     <div class="login">
-        <h1>Login</h1>
+        <h1>Admin Login</h1>
         <?php if (isset($_SESSION['msg'])) {
             echo  '<p class="Failed">' . $_SESSION['msg'] . '</p>';
             unset($_SESSION['msg']);
@@ -93,23 +90,6 @@ if (isset($_POST["username"], $_POST["password"])) {
         ?>
 
         <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST">
-            <?php
-            include('connection.php');
-
-            $class_result = mysqli_query($conn, "SELECT `name` FROM `society`");
-            echo '<select name="society">';
-            echo '<option selected disabled>Select Society Name</option>';
-            while ($row = mysqli_fetch_array($class_result)) {
-                $display = $row['name'];
-                echo '<option value="' . $display . '"';
-                if (isset($_SESSION['society']) && $_SESSION['society'] == $display) {
-                    echo "SELECTED";
-                    unset($_SESSION['society']);
-                }
-                echo '>' . $display . '</option>';
-            }
-            echo '</select>'
-            ?>
             <input type="text" name="username" id="uname" value="<?php if (isset($_SESSION['user'])) {
                                                                         echo $_SESSION['user'];
                                                                         unset($_SESSION['user']);
@@ -122,7 +102,7 @@ if (isset($_POST["username"], $_POST["password"])) {
         </form>
         <div class="redirect-option">
             <a href="index.html" class="home_redirect"><i class="fa fa-home" aria-hidden="true"></i> HOME</a>
-            <a href="admin_login.php" class="log_redirect"><i class="fa fa-user" aria-hidden="true"></i> Admin's Login</a>
+            <a href="login.php" class="log_redirect"><i class="fa fa-users" aria-hidden="true"></i> Resident's Login</a>
         </div>
     </div>
 </body>

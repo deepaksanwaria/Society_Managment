@@ -19,7 +19,14 @@ include('session.php');
 
 <body>
 <?php
-    include('navbar.php')
+    include('navbar.php');
+    if( isset($_SESSION['admin_search_user'])){
+        $username = $_SESSION['admin_search_user'];
+        echo '<div class="user_div">
+        <div class="user_sub_div">
+        Resident User ID: '.$username. '</div>
+        </div></center>';
+        }
     ?>
     <div class="content">
         <div class="main-content">
@@ -45,7 +52,11 @@ $name = $_POST['name'];
 $flat = $_POST['flat'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
-$username = $_SESSION['login_user'];
+if( isset($_SESSION['admin_search_user'])){
+    $username = $_SESSION['admin_search_user'];
+    }else{
+    $username = $_SESSION['login_user'];
+    }
 
 if(empty($name) or empty($flat) or empty($phone) or empty($email)){
     echo '<p class="error-s">Please insure that all the fields are filled</p>';
